@@ -1,1 +1,1 @@
-#  2tr8 quá bá khí
+#  QUÂN ĐỒNG TÍNH
