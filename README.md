@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Quà Việt – Quà tặng doanh nghiệp giá xưởng, in logo riêng</title>
+<title>Givista – Quà tặng doanh nghiệp giá xưởng, in logo riêng</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap">
 <style>
 :root{--bg:#F6F7FB;--sf:#fff;--ink:#14183A;--mu:#5B6180;--ln:#DDE0EE;--navy:#001B72;--on:#fff;--gold:#E8B03A;--og:#14183A;--red:#B3261E;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
