@@ -520,6 +520,11 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
 </script>
 <!-- Chatbot Mooly -->
 <script>
+  window.chatwootSettings = { locale: "vi", position: "right", type: "standard" };
+  window.addEventListener("chatwoot:ready", function () { console.log("[Chatbot] widget ready"); });
+  window.addEventListener("chatwoot:error", function (e) { console.warn("[Chatbot] widget error", e && e.detail); });
+</script>
+<script>
   (function(d,t) {
     var BASE_URL="https://chat.botchatlabs.com";
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
