@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="vi">
 <head>
 <meta charset="utf-8">
@@ -500,7 +500,7 @@ d.addEventListener('click',function(e){
         websiteToken: "47MsM4QHERudkz5aNc437z8j",
         baseUrl: BASE_URL
       });
-    }
+    };
   })(document,"script");
 </script>
 </body>
