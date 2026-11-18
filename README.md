@@ -520,46 +520,19 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
 </script>
 <!-- Chatbot Mooly -->
 <script>
-  window.chatwootSettings = { locale: "vi", position: "right", type: "standard", hideMessageBubble: false };
-  window.addEventListener("chatwoot:ready", function () { window.__gvChatOK = true; var f = document.getElementById("gv-chat-fb"); if (f) f.remove(); console.log("[Chatbot] widget ready"); });
-  window.addEventListener("chatwoot:error", function (e) { console.warn("[Chatbot] widget error", e && e.detail); });
-</script>
-<script>
-(function (d, t) {
-  var BASE_URL = "https://mooly.vn", TOKEN = "47MsM4QHERudkz5aNc437z8j";
-  var started = false;
-  function run() {
-    if (started || !window.chatwootSDK) return;
-    started = true;
-    try { window.chatwootSDK.run({ websiteToken: TOKEN, baseUrl: BASE_URL }); }
-    catch (err) { console.warn("[Chatbot] run() loi", err); showFallback(); }
-  }
-  function showFallback() {
-    if (d.getElementById("gv-chat-fb") || window.__gvChatOK) return;
-    var a = d.createElement("a");
-    a.id = "gv-chat-fb";
-    a.href = "https://zalo.me/1430671238891943406";
-    a.target = "_blank"; a.rel = "noopener";
-    a.textContent = "Chat với Givista";
-    a.style.cssText = "position:fixed;right:14px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:2147483000;background:#001b72;color:#fff;padding:12px 18px;border-radius:999px;font:600 14px/1 'Be Vietnam Pro',system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.3);text-decoration:none";
-    d.body.appendChild(a);
-  }
-  function load() {
-    if (window.chatwootSDK) { run(); return; }
-    var g = d.createElement(t);
-    g.src = BASE_URL + "/packs/js/sdk.js";
-    g.async = true;
-    g.onload = run;
-    g.onerror = function () { console.warn("[Chatbot] khong tai duoc sdk.js"); showFallback(); };
-    (d.head || d.body).appendChild(g);
-    // Neu sau 8 giay van chua co bong bong chat -> hien nut du phong
-    setTimeout(function () {
-      if (!window.__gvChatOK && !d.querySelector(".woot-widget-bubble,.woot--bubble-holder,.woot-widget-holder")) showFallback();
-    }, 8000);
-  }
-  if (d.readyState === "complete" || d.readyState === "interactive") load();
-  else d.addEventListener("DOMContentLoaded", load);
-})(document, "script");
+  (function(d,t) {
+    var BASE_URL="https://mooly.vn";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async=true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: "47MsM4QHERudkz5aNc437z8j",
+        baseUrl: BASE_URL
+      });
+    };
+  })(document,"script");
 </script>
 <!-- Chẩn đoán chatbot: mở trang kèm #chatdebug (ví dụ https://tên-miền/#chatdebug) -->
 <script>
