@@ -520,23 +520,74 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
 </script>
 <!-- Chatbot Mooly -->
 <script>
-  window.chatwootSettings = { locale: "vi", position: "right", type: "standard" };
-  window.addEventListener("chatwoot:ready", function () { console.log("[Chatbot] widget ready"); });
+  window.chatwootSettings = { locale: "vi", position: "right", type: "standard", hideMessageBubble: false };
+  window.addEventListener("chatwoot:ready", function () { window.__gvChatOK = true; var f = document.getElementById("gv-chat-fb"); if (f) f.remove(); console.log("[Chatbot] widget ready"); });
   window.addEventListener("chatwoot:error", function (e) { console.warn("[Chatbot] widget error", e && e.detail); });
 </script>
 <script>
-  (function(d,t) {
-    var BASE_URL="https://mooly.vn";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.async=true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: "47MsM4QHERudkz5aNc437z8j",
-        baseUrl: BASE_URL
-      });
-    };
-  })(document,"script");
+(function (d, t) {
+  var BASE_URL = "https://mooly.vn", TOKEN = "47MsM4QHERudkz5aNc437z8j";
+  var started = false;
+  function run() {
+    if (started || !window.chatwootSDK) return;
+    started = true;
+    try { window.chatwootSDK.run({ websiteToken: TOKEN, baseUrl: BASE_URL }); }
+    catch (err) { console.warn("[Chatbot] run() loi", err); showFallback(); }
+  }
+  function showFallback() {
+    if (d.getElementById("gv-chat-fb") || window.__gvChatOK) return;
+    var a = d.createElement("a");
+    a.id = "gv-chat-fb";
+    a.href = "https://zalo.me/1430671238891943406";
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "Chat với Givista";
+    a.style.cssText = "position:fixed;right:14px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:2147483000;background:#001b72;color:#fff;padding:12px 18px;border-radius:999px;font:600 14px/1 'Be Vietnam Pro',system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.3);text-decoration:none";
+    d.body.appendChild(a);
+  }
+  function load() {
+    if (window.chatwootSDK) { run(); return; }
+    var g = d.createElement(t);
+    g.src = BASE_URL + "/packs/js/sdk.js";
+    g.async = true;
+    g.onload = run;
+    g.onerror = function () { console.warn("[Chatbot] khong tai duoc sdk.js"); showFallback(); };
+    (d.head || d.body).appendChild(g);
+    // Neu sau 8 giay van chua co bong bong chat -> hien nut du phong
+    setTimeout(function () {
+      if (!window.__gvChatOK && !d.querySelector(".woot-widget-bubble,.woot--bubble-holder,.woot-widget-holder")) showFallback();
+    }, 8000);
+  }
+  if (d.readyState === "complete" || d.readyState === "interactive") load();
+  else d.addEventListener("DOMContentLoaded", load);
+})(document, "script");
+</script>
+<!-- Chẩn đoán chatbot: mở trang kèm #chatdebug (ví dụ https://tên-miền/#chatdebug) -->
+<script>
+(function(){
+  function run(){
+    if(location.hash.indexOf("chatdebug")<0||document.getElementById("gv-dbg"))return;
+    var box=document.createElement("pre");box.id="gv-dbg";
+    box.style.cssText="position:fixed;left:8px;right:8px;top:8px;z-index:2147483647;background:rgba(0,0,0,.88);color:#7CFC8A;font:12px/1.5 monospace;padding:10px 12px;border-radius:8px;white-space:pre-wrap;max-height:70vh;overflow:auto";
+    document.body.appendChild(box);
+    function log(m){box.textContent+=m+"\n"}
+    log("1. JavaScript tren trang: DANG CHAY ("+location.host+")");
+    var BASE="https://mooly.vn",TOKEN="47MsM4QHERudkz5aNc437z8j";
+    window.addEventListener("chatwoot:ready",function(){log("* su kien chatwoot:ready (widget san sang)")});
+    window.addEventListener("chatwoot:error",function(e){log("* su kien chatwoot:error "+JSON.stringify(e&&e.detail))});
+    fetch(BASE+"/packs/js/sdk.js",{mode:"no-cors"}).then(function(){log("2. Tai sdk.js tu "+BASE+": OK (khong bi chan)")}).catch(function(e){log("2. Tai sdk.js: THAT BAI -> bi chan mang / trinh chan quang cao / sai dia chi ("+e+")")});
+    fetch(BASE+"/api/v1/widget/config?website_token="+TOKEN+"&locale=vi",{method:"POST"}).then(function(r){return r.text().then(function(t){
+      log("3. Kiem tra token: HTTP "+r.status+(r.status==200?" -> TOKEN HOP LE":r.status==404?" -> TOKEN SAI hoac hop thu da tat":" -> kiem tra cai dat hop thu"));
+      log("   "+t.slice(0,160));
+    })}).catch(function(e){log("3. Kiem tra token: khong goi duoc ("+e+") -> CORS/ten mien bi chan")});
+    setTimeout(function(){
+      log("4. window.chatwootSDK: "+(typeof window.chatwootSDK));
+      log("5. Bong bong chat trong trang: "+(document.querySelector(".woot-widget-bubble,.woot--bubble-holder,.woot-widget-holder")?"CO":"KHONG CO"));
+      log("6. So iframe: "+document.querySelectorAll("iframe").length);
+      log("-> Chup man hinh khung nay gui lai de duoc ho tro.");
+    },5000);
+  }
+  if(document.readyState==="complete")run();else window.addEventListener("load",run);
+  window.addEventListener("hashchange",run);
+})();
 </script>
 </div>
