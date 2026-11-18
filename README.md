@@ -518,17 +518,17 @@ d.addEventListener('click',function(){setTimeout(sync,0)});b.addEventListener('c
 d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove('show');sync()});
 })();
 </script>
-<!-- Chatbot Mooly -->
+<!-- Chatbot Botchat -->
 <script>
   (function(d,t) {
-    var BASE_URL="https://mooly.vn";
+    var BASE_URL="https://chat.botchatlabs.com";
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
     g.src=BASE_URL+"/packs/js/sdk.js";
     g.async=true;
     s.parentNode.insertBefore(g,s);
     g.onload=function(){
       window.chatwootSDK.run({
-        websiteToken: "47MsM4QHERudkz5aNc437z8j",
+        websiteToken: "9maX5nJXRXhpEV5MLFQNG5up",
         baseUrl: BASE_URL
       });
     };
@@ -544,7 +544,7 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
     document.body.appendChild(box);
     function log(m){box.textContent+=m+"\n"}
     log("1. JavaScript tren trang: DANG CHAY ("+location.host+")");
-    var BASE="https://mooly.vn",TOKEN="47MsM4QHERudkz5aNc437z8j";
+    var BASE="https://chat.botchatlabs.com",TOKEN="9maX5nJXRXhpEV5MLFQNG5up";
     window.addEventListener("chatwoot:ready",function(){log("* su kien chatwoot:ready (widget san sang)")});
     window.addEventListener("chatwoot:error",function(e){log("* su kien chatwoot:error "+JSON.stringify(e&&e.detail))});
     fetch(BASE+"/packs/js/sdk.js",{mode:"no-cors"}).then(function(){log("2. Tai sdk.js tu "+BASE+": OK (khong bi chan)")}).catch(function(e){log("2. Tai sdk.js: THAT BAI -> bi chan mang / trinh chan quang cao / sai dia chi ("+e+")")});
