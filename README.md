@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="utf-8">
@@ -487,21 +487,6 @@ d.addEventListener('click',function(e){
  if(e.target.closest('#mnav a')||!e.target.closest('header'))nav.classList.remove('show');
 });
 })();
-</script>
-<script>
-  (function(d,t) {
-    var BASE_URL="https://mooly.vn";
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=BASE_URL+"/packs/js/sdk.js";
-    g.async=true;
-    s.parentNode.insertBefore(g,s);
-    g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: "47MsM4QHERudkz5aNc437z8j",
-        baseUrl: BASE_URL
-      });
-    };
-  })(document,"script");
 </script>
 </body>
 </html>
