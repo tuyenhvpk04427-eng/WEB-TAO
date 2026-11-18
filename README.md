@@ -269,6 +269,7 @@ header .catmenu{filter:drop-shadow(0 12px 24px rgba(0,0,0,.25))}
 #gv-root .pico a,#gv-root .pico button{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;color:var(--brand);cursor:pointer;font:inherit;font-size:11px;font-weight:600;position:relative;padding:0}
 #gv-root .pico svg{width:26px;height:26px}
 #gv-root .pico .cart b{position:absolute;right:-8px;top:-6px;background:#c41a00;color:#fff;border-radius:50%;width:17px;height:17px;font-size:10px;display:grid;place-items:center}
+#gv-root .float{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 .bnr{padding:0}
 @media(min-width:901px){.ar{top:38%}}
 .stack{max-width:none}
@@ -516,5 +517,21 @@ function sync(){b.setAttribute('aria-expanded',n.classList.contains('show')?'tru
 d.addEventListener('click',function(){setTimeout(sync,0)});b.addEventListener('click',function(){setTimeout(sync,0)});
 d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove('show');sync()});
 })();
+</script>
+<!-- Chatbot Mooly -->
+<script>
+  (function(d,t) {
+    var BASE_URL="https://chat.botchatlabs.com";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.async=true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: "7BwZknTYJhhATmfAKtiFcZL5",
+        baseUrl: BASE_URL
+      });
+    };
+  })(document,"script");
 </script>
 </div>
