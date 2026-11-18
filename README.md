@@ -496,8 +496,8 @@ d.addEventListener('click',function(e){
     g.async=true;
     s.parentNode.insertBefore(g,s);
     g.onload=function(){
-      window.chatwootSDK.run({
-        websiteToken: "47MsM4QHERudkz5aNc437z8j",
+      window.chatwootsSDK.run({
+        websiteToken: "47MsM4QHERudkz5aN437z8j",
         baseUrl: BASE_URL
       });
     };
