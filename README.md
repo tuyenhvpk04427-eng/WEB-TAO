@@ -526,14 +526,14 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
 </script>
 <script>
   (function(d,t) {
-    var BASE_URL="https://chat.botchatlabs.com";
+    var BASE_URL="https://mooly.vn";
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
     g.src=BASE_URL+"/packs/js/sdk.js";
     g.async=true;
     s.parentNode.insertBefore(g,s);
     g.onload=function(){
       window.chatwootSDK.run({
-        websiteToken: "7BwZknTYJhhATmfAKtiFcZL5",
+        websiteToken: "47MsM4QHERudkz5aNc437z8j",
         baseUrl: BASE_URL
       });
     };
