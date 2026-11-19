@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="vi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -700,13 +700,13 @@ document.addEventListener('click',function(e){var t=e.target;
  if((m=t.closest('[data-q-x]'))){delete cart[m.dataset.qX];save();render();return}
  var h=t.closest('[data-home]');if(h){e.preventDefault();panel(false);goHome(h.getAttribute('href'));return}
 });
-$('cf').addEventListener('submit',function(e){e.preventDefault();var f=e.target,code='GV'+Date.now().toString().slice(-6),fd=new FormData(f),ds=[],tt=0;
+document.addEventListener('submit',function(e){if(!e.target||e.target.id!=='cf')return;e.preventDefault();var f=e.target,code='GV'+Date.now().toString().slice(-6),fd=new FormData(f),ds=[],tt=0;
  Object.keys(cart).forEach(function(k){ds.push(PR[k].n+' x'+cart[k]);tt+=PR[k].p*cart[k]});
  window.gvSend({loai:'Đơn hàng '+code,ten:fd.get('n'),doanhnghiep:fd.get('c'),sdt:fd.get('p'),soluong:'',diachi:fd.get('a'),ghichu:fd.get('m'),donhang:ds.join('; '),tong:tt});
  cart={};save();render();f.reset();f.style.display='none';
  $('cb').innerHTML='<div class="gok">Đã nhận đơn '+code+'. Givista sẽ liên hệ xác nhận số lượng, mẫu logo và thời gian giao.</div>'});
-$('sf').addEventListener('submit',function(e){e.preventDefault();var q=$('q').value.trim().toLowerCase();show('Kết quả tìm kiếm: '+q,ALL.filter(function(a){return a[0].toLowerCase().indexOf(q)>-1}))});
-render();
+document.addEventListener('submit',function(e){if(!e.target||e.target.id!=='sf')return;e.preventDefault();var q=$('q').value.trim().toLowerCase();show('Kết quả tìm kiếm: '+q,ALL.filter(function(a){return a[0].toLowerCase().indexOf(q)>-1}))});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
 })();
 </script>
 <script>
@@ -780,7 +780,7 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
 </style>
 <script>
 /* Dán link Web App của Google Apps Script vào đây để đơn hàng và form gửi thẳng vào Google Sheet */
-window.GV_SHEET='https://script.google.com/macros/s/AKfycbzLGlwC22Fq82iSf4egpeEd5b-SlR7EL4J5s1kLTjQS9k4gQmXCvFZ4k2lUp11HHcvi/exec';
+window.GV_SHEET='https://script.google.com/macros/s/AKfycbzSKS3U6m3H5IMD50AF965zb03oZk4Fx1kYIqn_E0lVl_5_ve95xvmeLkSHNyipLUm1/exec';
 window.gvSend=function(d){d.thoigian=new Date().toLocaleString('vi-VN');
  if(!window.GV_SHEET)return;
  try{fetch(window.GV_SHEET,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).catch(function(){})}catch(e){}};
