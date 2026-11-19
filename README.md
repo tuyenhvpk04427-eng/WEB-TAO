@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="vi">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -700,7 +700,9 @@ document.addEventListener('click',function(e){var t=e.target;
  if((m=t.closest('[data-q-x]'))){delete cart[m.dataset.qX];save();render();return}
  var h=t.closest('[data-home]');if(h){e.preventDefault();panel(false);goHome(h.getAttribute('href'));return}
 });
-$('cf').addEventListener('submit',function(e){e.preventDefault();var f=e.target,code='GV'+Date.now().toString().slice(-6);
+$('cf').addEventListener('submit',function(e){e.preventDefault();var f=e.target,code='GV'+Date.now().toString().slice(-6),fd=new FormData(f),ds=[],tt=0;
+ Object.keys(cart).forEach(function(k){ds.push(PR[k].n+' x'+cart[k]);tt+=PR[k].p*cart[k]});
+ window.gvSend({loai:'Đơn hàng '+code,ten:fd.get('n'),doanhnghiep:fd.get('c'),sdt:fd.get('p'),soluong:'',diachi:fd.get('a'),ghichu:fd.get('m'),donhang:ds.join('; '),tong:tt});
  cart={};save();render();f.reset();f.style.display='none';
  $('cb').innerHTML='<div class="gok">Đã nhận đơn '+code+'. Givista sẽ liên hệ xác nhận số lượng, mẫu logo và thời gian giao.</div>'});
 $('sf').addEventListener('submit',function(e){e.preventDefault();var q=$('q').value.trim().toLowerCase();show('Kết quả tìm kiếm: '+q,ALL.filter(function(a){return a[0].toLowerCase().indexOf(q)>-1}))});
@@ -708,7 +710,9 @@ render();
 })();
 </script>
 <script>
-document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').style.display='block';e.target.reset()});
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();var i=e.target.querySelectorAll('input');
+window.gvSend({loai:'Đăng ký báo giá',ten:i[0].value,doanhnghiep:i[1].value,sdt:i[2].value,soluong:i[3].value,diachi:'',ghichu:'',donhang:'',tong:''});
+document.getElementById('ok').style.display='block';e.target.reset()});
 </script>
 <script>
 (function(){var sl=document.querySelectorAll('.bnr .sl'),i=0,t;
@@ -768,6 +772,20 @@ d.getElementById('sbtn').addEventListener('click',function(){n.classList.remove(
 <aside id="cartp" aria-label="Giỏ hàng" aria-hidden="true"><div class="ch"><h3>Giỏ hàng</h3><button class="x" type="button" data-close aria-label="Đóng">×</button></div><div class="cb" id="cb"></div>
 <form class="cf" id="cf"><div class="tot"><span>Tạm tính</span><span id="ct">0₫</span></div><input name="n" required placeholder="Họ tên *"><input name="c" placeholder="Tên doanh nghiệp"><input name="p" required type="tel" placeholder="Số điện thoại *"><input name="a" required placeholder="Địa chỉ nhận hàng *"><textarea name="m" rows="2" placeholder="Ghi chú: logo cần in, ngày giao…"></textarea><button class="btn" type="submit">Gửi đơn đặt hàng</button><div id="cm" role="status"></div></form></aside>
 <div id="pm" role="dialog" aria-modal="true" aria-label="Chi tiết sản phẩm"></div>
+<style>
+#gv-root .intro .ihead{max-width:1180px}
+#gv-root .intro .ihead h2{letter-spacing:.07em;font-size:clamp(24px,3.4vw,44px);margin-bottom:18px}
+#gv-root .intro .ihead .eyebrow{letter-spacing:.3em}
+#gv-root .intro .ihead .lede{max-width:none;letter-spacing:.03em;word-spacing:.12em}
+@media(min-width:900px){#gv-root .intro .ihead h2{white-space:nowrap}}
+</style>
+<script>
+/* Dán link Web App của Google Apps Script vào đây để đơn hàng và form gửi thẳng vào Google Sheet */
+window.GV_SHEET='https://script.google.com/macros/s/AKfycbzLGlwC22Fq82iSf4egpeEd5b-SlR7EL4J5s1kLTjQS9k4gQmXCvFZ4k2lUp11HHcvi/exec';
+window.gvSend=function(d){d.thoigian=new Date().toLocaleString('vi-VN');
+ if(!window.GV_SHEET)return;
+ try{fetch(window.GV_SHEET,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).catch(function(){})}catch(e){}};
+</script>
 <!-- Chatbot Botchat -->
 <script>
   (function(d,t) {
